@@ -1,0 +1,32 @@
+name: Publish Smarty-ui-vite To Npm
+
+on:
+  push:
+   branches: [publish-smarty-ui-vite]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    name: publish npm
+
+    environment: npm
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 6.0.2
+      - name: Install modules
+        run: pnpm install
+      - name: Build
+        run: cd packages/smarty-ui-vite2 && npm run build
+      - name: Publish to the npm registry
+        uses: primer/publish@3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.VITE_UI_SECRET }}
+        with:
+          default_branch: publish-smarty-ui-vite
+          dir: packages/smarty-ui-vite2/dist
+          npm_args: --unsafe-perm --allow-same-version
