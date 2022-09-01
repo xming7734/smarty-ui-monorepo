@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+cd packages/smarty-ui-vite2
+pnpm lint
+pnpm lint
