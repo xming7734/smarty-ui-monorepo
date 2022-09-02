@@ -1,8 +1,9 @@
 {
-  "name": "ui-vite",
-  "version": "0.1.0",
+  "name": "smarty-ui-vite2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
+  "module": "./dist/smarty-ui.esm.js",
   "scripts": {
     "dev": "vite",
     "docs:dev": "vitepress dev docs",
