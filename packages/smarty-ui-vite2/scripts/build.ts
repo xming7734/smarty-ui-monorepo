@@ -10,6 +10,21 @@ const buildAll = async () => {
   await build(defineConfig(config as UserConfig) as InlineConfig)
   // await build(defineConfig({}))
 
+  // 复制 Package.json 文件
+  const packageJson = require("../package.json")
+  packageJson.main = "smarty-ui.umd.js"
+  packageJson.module = "smarty-ui.esm.js"
+  fs.outputFile(
+    path.resolve(config.build.outDir, `package.json`),
+    JSON.stringify(packageJson, null, 2)
+  )
+
+  // 拷贝 README.md文件
+  fs.copyFileSync(
+    path.resolve("./README.md"),
+    path.resolve(config.build.outDir + "/README.md")
+  )
+
   const srcDir = path.resolve(__dirname, "../src/")
   fs.readdirSync(srcDir)
     .filter((name) => {
